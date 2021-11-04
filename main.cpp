@@ -11,7 +11,7 @@ int main(int argc, const char *argv[]) {
     AnalysisResult ar = AnalysisResult();
 
     if (argc != 2) {
-        std::cout<<"usage: scan_util [directory name]"<<std::endl;
+        std::cout<<"usage: scan_util [directory-name]"<<std::endl;
         return 0;
     }
 

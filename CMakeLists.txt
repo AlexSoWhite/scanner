@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(scan_util)
 
 set(CMAKE_CXX_STANDARD 17)
-
+set(CMAKE_CXX_FLAGS -fopenmp)
 add_executable(scan_util
         main.cpp
                 src/Parser.cpp

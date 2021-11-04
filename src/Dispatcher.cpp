@@ -4,21 +4,30 @@
 
 #include <string>
 #include <regex>
-#include <iostream>
+#include <omp.h>
 #include "../include/Dispatcher.h"
 #include "../include/Scanner.h"
 
 Dispatcher::Dispatcher() {
+    // инициализируем типы файлов
     this->fileTypes = FileTypes();
 }
 
 void Dispatcher::start(const std::string &fileName, AnalysisResult &ar) {
-    for (const FileType & fType : fileTypes.getFileTypes()) {
-        if (std::regex_search(fileName, fType.getFileTypeRegex().reg)) {
-            //std::cout << fileName << " is " << fType.getFileTypeString() << std::endl;
-            Scanner scanner = Scanner();
-            ResultTypes rt = scanner.scan(fileName, fType.getSuspiciousStrings());
 
+    omp_lock_t lock;
+    omp_init_lock(&lock);
+
+    // проходим по типам файлов в поисках совпадения с текущим файлом
+    for (const FileType & fType : fileTypes.getFileTypes()) {
+
+        // с помощью регулярки проверяем расширение файла
+        if (std::regex_search(fileName, fType.getFileTypeRegex().reg)) {
+
+            // запускаем сканнер и пишем результат сканирования в rt
+            ResultTypes rt = Scanner::scan(fileName, fType.getSuspiciousStrings());
+
+            omp_set_lock(&lock);
             if (rt == ResultTypes::ERROR) {
                 ar.increaseErrors();
             }
@@ -42,6 +51,7 @@ void Dispatcher::start(const std::string &fileName, AnalysisResult &ar) {
                         break;
                 }
             }
+            omp_unset_lock(&lock);
             break;
         }
     }

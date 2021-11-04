@@ -21,9 +21,3 @@ Parser & Parser::parse(const std::string & directoryName) {
 std::vector<std::string> Parser::getFileNames() {
     return this->fileNames;
 }
-
-void Parser::printFileNames() {
-    for (const auto & v: this->fileNames) {
-        std::cout<<v<<std::endl;
-    }
-}

@@ -9,11 +9,14 @@
 #include "Pattern.h"
 #include "ResultTypes.h"
 
-// класс, объект которого читает и сканирует определенный файл.
+// сканнер, который читает и сканирует определенный файл.
 class Scanner {
 public:
     Scanner() = default;
-    ResultTypes scan(const std::string& fileName, const std::vector<Pattern>& suspiciousStrings);
+    static ResultTypes scan(
+                const std::string& fileName,
+                const std::vector<Pattern>& suspiciousStrings
+            ); // сканирование файла на предмет наличия подозрительных строк
 };
 
 #endif //SCAN_UTIL_SCANNER_H

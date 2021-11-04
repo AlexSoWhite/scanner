@@ -5,16 +5,15 @@
 #ifndef SCAN_UTIL_DISPATCHER_H
 #define SCAN_UTIL_DISPATCHER_H
 
-#include "FileType.h"
 #include "FileTypes.h"
 #include "AnalysisResult.h"
 
-//класс, объект которого принимает на вход имя файла и решает, как его просканировать с помощью Scanner.
+// класс, объект которого решает, как его просканировать файл с помощью Scanner.
 class Dispatcher {
-    FileTypes fileTypes;
+    FileTypes fileTypes; // это поле хранит типы файлов со всеми данными
 public:
-    Dispatcher();
-    void start(const std::string& fileName, AnalysisResult &ar);
+    Dispatcher(); // инициализация fileTypes через дефолтный конструктор FileTypes()
+    void start(const std::string& fileName, AnalysisResult &ar); // передача файла в Scanner и обработка результата
 };
 
 #endif //SCAN_UTIL_DISPATCHER_H

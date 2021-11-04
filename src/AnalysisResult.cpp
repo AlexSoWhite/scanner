@@ -22,7 +22,7 @@ void AnalysisResult::print() const {
     std::cout<<"CMD detects: "<<cmdDetects<<std::endl;
     std::cout<<"EXE detects: "<<exeDetects<<std::endl;
     std::cout<<"Errors: "<<errors<<std::endl;
-    std::cout<<"Execution time: "<<(endTime-startTime)/CLOCKS_PER_SEC<<std::endl;
+    std::cout<<"Execution time: "<<endTime-startTime<<std::endl;
     std::cout<<"========================="<<std::endl;
 }
 

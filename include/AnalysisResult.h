@@ -5,8 +5,6 @@
 #ifndef SCAN_UTIL_ANALYSISRESULT_H
 #define SCAN_UTIL_ANALYSISRESULT_H
 
-#include <ctime>
-
 // класс, объект которого хранит в себе результаты анализа, в том числе время
 class AnalysisResult {
     unsigned long processedFiles;
@@ -14,8 +12,8 @@ class AnalysisResult {
     int cmdDetects;
     int exeDetects;
     int errors;
-    clock_t startTime{};
-    clock_t endTime{};
+    float startTime;
+    float endTime;
 public:
     AnalysisResult();
     void print() const;
@@ -30,9 +28,9 @@ public:
 
     void increaseErrors() { ++this->errors; };
 
-    void setStartTime(clock_t time) { this->startTime = time; };
+    void setStartTime(float time) { this->startTime = time; };
 
-    void setEndTime(clock_t time) { this->endTime = time; };
+    void setEndTime(float time) { this->endTime = time; };
 };
 
 #endif //SCAN_UTIL_ANALYSISRESULT_H

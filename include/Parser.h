@@ -12,13 +12,11 @@ class Parser {
     std::vector<std::string> fileNames;
 public:
 
-    Parser();
+    Parser(); // создание пустого вектора
 
-    Parser & parse(const std::string & directoryName);
+    Parser & parse(const std::string & directoryName); // получение имен файлов в дирекотрии
 
-    std::vector<std::string> getFileNames();
-
-    void printFileNames();
+    std::vector<std::string> getFileNames(); // предоставление доступа к именам файлов
 };
 
 

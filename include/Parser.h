@@ -7,15 +7,12 @@
 
 #include <vector>
 
-// класс, объект которого получает и хранит массив имен файлов в директории. не делает ничего с конкретным файлом.
+// Класс, объект которого получает и хранит массив имен файлов в директории. Не делает ничего с конкретным файлом.
 class Parser {
     std::vector<std::string> fileNames;
 public:
-
     Parser(); // создание пустого вектора
-
-    Parser & parse(const std::string & directoryName); // получение имен файлов в дирекотрии
-
+    void parse(const std::string & directoryName); // получение имен файлов в дирекотрии
     std::vector<std::string> getFileNames(); // предоставление доступа к именам файлов
 };
 

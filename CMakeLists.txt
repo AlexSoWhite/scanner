@@ -4,7 +4,7 @@ project(scan_util)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS -fopenmp)
 add_executable(scan_util
-        main.cpp
+                main.cpp
                 src/Parser.cpp
                 include/Parser.h
                 src/Scanner.cpp
@@ -15,8 +15,6 @@ add_executable(scan_util
                 include/FileType.h
                 src/FileTypes.cpp
                 include/FileTypes.h
-                include/Pattern.h
                 src/AnalysisResult.cpp
                 include/AnalysisResult.h
-                include/ResultTypes.h
-            )
+        )

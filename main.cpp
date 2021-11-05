@@ -3,23 +3,25 @@
 #include "include/Dispatcher.h"
 #include "include/AnalysisResult.h"
 #include <omp.h>
+
 int main(int argc, const char *argv[]) {
 
-    clock_t bgn = clock();
-    float begin = omp_get_wtime();
-    // сюда мы будем писать результаты анализа
-    AnalysisResult ar = AnalysisResult();
-
     if (argc != 2) {
-        std::cout<<"usage: scan_util [directory-name]"<<std::endl;
+        std::cout<<"usage: ./scan_util [directory-name]"<<std::endl;
         return 0;
     }
 
+    // сюда мы будем писать результаты анализа
+    AnalysisResult ar = AnalysisResult();
+
+    float begin = omp_get_wtime();
+
     Parser parser = Parser();
-    Dispatcher dispatcher = Dispatcher();
 
     // получение списка имен файлов в указанной директории
     parser.parse(argv[1]);
+
+    Dispatcher dispatcher = Dispatcher();
 
     // передача имён файлов в диспетчер, который внутри себя будет вызывать сканнеры с подходящими аргументами
     #pragma omp parallel shared(parser, ar, dispatcher) default(none)
@@ -28,12 +30,12 @@ int main(int argc, const char *argv[]) {
         dispatcher.start(fName, ar);
     }
 
-    clock_t nd = clock();
     float end = omp_get_wtime();
+
+    // упаковка оставшихся данных о результате в ar и вывод в консоль
     ar.setProcessedFiles(parser.getFileNames().size());
     ar.setStartTime(begin);
     ar.setEndTime(end);
     ar.print();
-    std::cout << (nd - bgn)/CLOCKS_PER_SEC << std::endl;
     return 0;
 }

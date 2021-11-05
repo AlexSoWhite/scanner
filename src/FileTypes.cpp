@@ -9,19 +9,19 @@
 
 // конструктор, инициализирующий все типы файлов с подозрительными строками.
 FileTypes::FileTypes() {
-    std::map<int, std::vector<Pattern>> suspiciousStrings = {
-            {JS, {Pattern(R"(<script>evil_script\(\)<\/script>)")}},
-            {CMD, {Pattern(R"(rd \/s \/q \"c:\\windows\")")}},
-            {BAT, {Pattern(R"(rd \/s \/q \"c:\\windows\")")}},
-            {EXE, {Pattern(R"(CreateRemoteThread)"), Pattern(R"(CreateProcess)")}},
-            {DLL, {Pattern(R"(CreateRemoteThread)"), Pattern(R"(CreateProcess)")}},
+    std::map<int, std::vector<std::regex>> suspiciousStrings = {
+            {JS, {std::regex(R"(<script>evil_script\(\)<\/script>)")}},
+            {CMD, {std::regex(R"(rd \/s \/q \"c:\\windows\")")}},
+            {BAT, {std::regex(R"(rd \/s \/q \"c:\\windows\")")}},
+            {EXE, {std::regex(R"(CreateRemoteThread)"), std::regex(R"(CreateProcess)")}},
+            {DLL, {std::regex(R"(CreateRemoteThread)"), std::regex(R"(CreateProcess)")}},
     };
     this->fileTypes = {
-            FileType(JS, Pattern(".js"), suspiciousStrings.at(JS)),
-            FileType(CMD, Pattern(".cmd"), suspiciousStrings.at(CMD)),
-            FileType(BAT, Pattern(".bat"), suspiciousStrings.at(BAT)),
-            FileType(EXE, Pattern(".exe"), suspiciousStrings.at(EXE)),
-            FileType(DLL, Pattern(".dll"), suspiciousStrings.at(DLL)),
+            FileType(JS, std::regex(".js"), suspiciousStrings.at(JS)),
+            FileType(CMD, std::regex(".cmd"), suspiciousStrings.at(CMD)),
+            FileType(BAT, std::regex(".bat"), suspiciousStrings.at(BAT)),
+            FileType(EXE, std::regex(".exe"), suspiciousStrings.at(EXE)),
+            FileType(DLL, std::regex(".dll"), suspiciousStrings.at(DLL)),
     };
 }
 

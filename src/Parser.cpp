@@ -11,11 +11,10 @@ Parser::Parser() {
     this->fileNames = std::vector<std::string>();
 }
 
-Parser & Parser::parse(const std::string & directoryName) {
+void Parser::parse(const std::string & directoryName) {
     for (const auto &entry: std::filesystem::directory_iterator(directoryName)) {
         this->fileNames.push_back(entry.path());
     }
-    return *this;
 }
 
 std::vector<std::string> Parser::getFileNames() {

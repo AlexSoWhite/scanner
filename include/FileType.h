@@ -6,24 +6,16 @@
 #define SCAN_UTIL_FILETYPE_H
 
 #include <regex>
-#include "Pattern.h"
 
 // класс, объектами которого являются типы файлов.
-// содержит:
-//     тип файла (расширение),
-//     регулярное выражение типа regex(".js"),
-//     список подозрительных строк, встречающихся в данном типе файла
 class FileType {
-    int fileType;
-    Pattern fileTypeRegex;
-    std::vector<Pattern> suspiciousStrings;
+    int fileType; // тип файла (расширение)
+    std::regex fileTypeRegex; // регулярное выражение типа regex(".js")
+    std::vector<std::regex> suspiciousStrings; // список подозрительных строк, встречающихся в данном типе файла
 public:
-    FileType(int fileType, Pattern fileTypeRegex, const std::vector<Pattern> & susStrings);
-
-    const Pattern &getFileTypeRegex() const;
-
-    const std::vector<Pattern> &getSuspiciousStrings() const;
-
+    FileType(int fileType, std::regex fileTypeRegex, const std::vector<std::regex> & susStrings);
+    const std::regex &getFileTypeRegex() const;
+    const std::vector<std::regex> &getSuspiciousStrings() const;
     int getFileType() const;
 };
 

@@ -8,12 +8,12 @@
 #include "FileTypes.h"
 #include "AnalysisResult.h"
 
-// класс, объект которого решает, как его просканировать файл с помощью Scanner.
+// класс, объект которого решает, как просканировать файл с помощью Scanner и обрабатывает результат
 class Dispatcher {
     FileTypes fileTypes; // это поле хранит типы файлов со всеми данными
 public:
     Dispatcher(); // инициализация fileTypes через дефолтный конструктор FileTypes()
-    void start(const std::string& fileName, AnalysisResult &ar); // передача файла в Scanner и обработка результата
+    void start(const std::string& fileName, AnalysisResult &ar); // запуск сканнеров и обработка результатов
 };
 
 #endif //SCAN_UTIL_DISPATCHER_H

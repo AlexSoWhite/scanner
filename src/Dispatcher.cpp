@@ -4,7 +4,6 @@
 
 #include <string>
 #include <regex>
-#include <omp.h>
 #include "../include/Dispatcher.h"
 #include "../include/Scanner.h"
 
@@ -15,24 +14,20 @@ Dispatcher::Dispatcher() {
 
 void Dispatcher::start(const std::string &fileName, AnalysisResult &ar) {
 
-    omp_lock_t lock;
-    omp_init_lock(&lock);
-
     // проходим по типам файлов в поисках совпадения с текущим файлом
     for (const FileType & fType : fileTypes.getFileTypes()) {
 
         // с помощью регулярки проверяем расширение файла
-        if (std::regex_search(fileName, fType.getFileTypeRegex().reg)) {
+        if (std::regex_search(fileName, fType.getFileTypeRegex())) {
 
             // запускаем сканнер и пишем результат сканирования в rt
-            ResultTypes rt = Scanner::scan(fileName, fType.getSuspiciousStrings());
+            Scanner::Result rt = Scanner::scan(fileName, fType.getSuspiciousStrings());
 
-            omp_set_lock(&lock);
-            if (rt == ResultTypes::ERROR) {
+            if (rt == Scanner::Result::ERROR) {
                 ar.increaseErrors();
             }
 
-            else if (rt == ResultTypes::DETECTED) {
+            else if (rt == Scanner::Result::DETECTED) {
                 switch (fType.getFileType()) {
                     case FileTypes::JS:
                         ar.increaseJsDetects();
@@ -51,7 +46,6 @@ void Dispatcher::start(const std::string &fileName, AnalysisResult &ar) {
                         break;
                 }
             }
-            omp_unset_lock(&lock);
             break;
         }
     }

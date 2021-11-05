@@ -5,7 +5,7 @@
 #include <fstream>
 #include "../include/Scanner.h"
 
-ResultTypes Scanner::scan(const std::string& fileName, const std::vector<Pattern>& suspiciousStrings) {
+Scanner::Result Scanner::scan(const std::string& fileName, const std::vector<std::regex>& suspiciousStrings) {
 
     // пробуем открыть файл
     std::ifstream fin;
@@ -13,23 +13,23 @@ ResultTypes Scanner::scan(const std::string& fileName, const std::vector<Pattern
 
     // файл не открылся - возвращаем ошибку
     if (!fin.is_open()) {
-        return ResultTypes::ERROR;
+        return Result::ERROR;
     }
 
     // если файл открылся, читаем его по строкам и ищем в нем подозрительные строчки
     std::string currentString;
     while (!fin.eof()) {
         getline(fin, currentString);
-        for (const Pattern & pattern : suspiciousStrings) {
-            if (std::regex_search(currentString, pattern.reg)) {
+        for (const std::regex & reg : suspiciousStrings) {
+            if (std::regex_search(currentString, reg)) {
                 // подозрительная строка найдена. не забываем закрыть файл
                 fin.close();
-                return ResultTypes::DETECTED;
+                return Result::DETECTED;
             }
         }
     }
 
     // если дошло сюда, значит, мы ничего не нашли
     fin.close();
-    return ResultTypes::UNDETECTED;
+    return Result::UNDETECTED;
 }

@@ -7,7 +7,7 @@
 
 // класс, объект которого хранит в себе результаты анализа, в том числе время
 class AnalysisResult {
-    unsigned long processedFiles;
+    int processedFiles;
     int jsDetects;
     int cmdDetects;
     int exeDetects;
@@ -15,21 +15,14 @@ class AnalysisResult {
     float startTime;
     float endTime;
 public:
-    AnalysisResult();
+    AnalysisResult(); // инициализация полей нулями
     void print() const;
-
-    void setProcessedFiles(unsigned long filesAmount) { this->processedFiles = filesAmount; };
-
+    void setProcessedFiles(int filesAmount) { this->processedFiles = filesAmount; };
     void increaseJsDetects() { ++this->jsDetects; };
-
     void increaseCmdDetects() { ++this->cmdDetects; };
-
     void increaseExeDetects() { ++this->exeDetects; };
-
     void increaseErrors() { ++this->errors; };
-
     void setStartTime(float time) { this->startTime = time; };
-
     void setEndTime(float time) { this->endTime = time; };
 };
 

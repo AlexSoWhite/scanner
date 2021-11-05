@@ -3,7 +3,6 @@
 //
 
 #include <set>
-#include <utility>
 #include "../include/FileType.h"
 
 FileType::FileType(int fileType, std::regex fileTypeRegex, const std::vector<std::regex>& susStrings) {

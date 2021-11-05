@@ -19,21 +19,43 @@ sus_strings = [
     ["CreateRemoteThread", "CreateProcess"]
 ]
 
-js_detects = 0
-cmd_detects = 0
-exe_detects = 0
+detects = [0, 0, 0]
 
-js_overall = 0
-cmd_overall = 0
-exe_overall = 0
+overall = [0, 0, 0]
 
 dir_name = sys.argv[1]
 path = dir_name + "/"
 count = int(sys.argv[2])
 
+
+def generate_file(iteration, f_type):
+    with open(path + str(iteration) + f_type, "w+") as f:
+        result = requests.get(
+            url + hex(iteration) + "-w" + str(iteration) + "-s" + str(iteration) + "-v" + str(random.randint(0, 5)) + ":1").text.split()
+        if random.randint(0, 5) > 3:
+            if f_type == ".js":
+                result.insert(int(len(result) / random.randint(1, 10)), sus_strings[0][0])
+                detects[0] += 1
+            elif (f_type == ".cmd") or (f_type == ".bat"):
+                result.insert(int(len(result) / random.randint(1, 10)), sus_strings[1][0])
+                detects[1] += 1
+            else:
+                result.insert(int(len(result) / random.randint(1, 10)), sus_strings[3][random.randint(0, 1) % 2])
+                detects[2] += 1
+        if f_type == ".js":
+            overall[0] += 1
+        elif (f_type == ".cmd") or (f_type == ".bat"):
+            overall[1] += 1
+        else:
+            overall[2] += 1
+        result = " ".join(result)
+        result = result * (20 + random.randint(0, 100))
+        f.write(result)
+
+
 os.makedirs(dir_name)
 
-bar = IncrementalBar("generating files", max = count)
+bar = IncrementalBar("generating files", max=count)
 
 for i in range(count):
 
@@ -42,75 +64,30 @@ for i in range(count):
     num = random.randint(0, count)
 
     if num < count * 1 / 5:
-        with open(path + str(i) + ".js", "w+") as f:
-            r = requests.get(
-                url + hex(i) + "-w" + str(i) + "-s" + str(i) + "-v" + str(random.randint(0, 5)) + ":1").text.split()
-            if random.randint(0, 5) > 3:
-                r.insert(int(len(r) / random.randint(1, 10)), sus_strings[0][0])
-                js_detects += 1
-            r = " ".join(r)
-            js_overall += 1
-            r = r * (20 + random.randint(0, 100))
-            f.write(r)
+        generate_file(i, ".js")
         continue
 
     elif num < count * 2 / 5:
-        with open(path + str(i) + ".cmd", "w+") as f:
-            r = requests.get(
-                url + hex(i) + "-w" + str(i) + "-s" + str(i) + "-v" + str(random.randint(0, 5)) + ":1").text.split()
-            if random.randint(0, 5) > 3:
-                r.insert(int(len(r) / random.randint(1, 10)), sus_strings[1][0])
-                cmd_detects += 1
-            r = " ".join(r)
-            cmd_overall += 1
-            r = r * (20 + random.randint(0, 100))
-            f.write(r)
+        generate_file(i, ".cmd")
         continue
 
     elif num < count * 3 / 5:
-        with open(path + str(i) + ".bat", "w+") as f:
-            r = requests.get(
-                url + hex(i) + "-w" + str(i) + "-s" + str(i) + "-v" + str(random.randint(0, 5)) + ":1").text.split()
-            if random.randint(0, 5) > 3:
-                r.insert(int(len(r) / random.randint(1, 10)), sus_strings[2][0])
-                cmd_detects += 1
-            r = " ".join(r)
-            cmd_overall += 1
-            r = r * (20 + random.randint(0, 100))
-            f.write(r)
+        generate_file(i, ".bat")
         continue
 
     elif num < count * 4 / 5:
-        with open(path + str(i) + ".exe", "w+") as f:
-            r = requests.get(
-                url + hex(i) + "-w" + str(i) + "-s" + str(i) + "-v" + str(random.randint(0, 5)) + ":1").text.split()
-            if random.randint(0, 5) > 3:
-                r.insert(int(len(r) / random.randint(1, 10)), sus_strings[3][random.randint(0, 1) % 2])
-                exe_detects += 1
-            r = " ".join(r)
-            exe_overall += 1
-            r = r * (20 + random.randint(0, 100))
-            f.write(r)
+        generate_file(i, ".exe")
         continue
 
     else:
-        with open(path + str(i) + ".dll", "w+") as f:
-            r = requests.get(
-                url + hex(i) + "-w" + str(i) + "-s" + str(i) + "-v" + str(random.randint(0, 5)) + ":1").text.split()
-            if random.randint(0, 5) > 3:
-                r.insert(int(len(r) / random.randint(1, 10)), sus_strings[4][random.randint(0, 1) % 2])
-                exe_detects += 1
-            r = " ".join(r)
-            exe_overall += 1
-            r = r * (100 + random.randint(0, 1000))
-            f.write(r)
+        generate_file(i, ".dll")
         continue
 
 bar.finish()
 
 print("js")
-print("\toverall "+str(js_overall)+"\tinfected "+str(js_detects))
+print("\toverall " + str(overall[0]) + "\tinfected " + str(detects[0]))
 print("cmd")
-print("\toverall "+str(cmd_overall)+"\tinfected "+str(cmd_detects))
+print("\toverall " + str(overall[1]) + "\tinfected " + str(detects[1]))
 print("exe")
-print("\toverall "+str(exe_overall)+"\tinfected "+str(exe_detects))
+print("\toverall " + str(overall[2]) + "\tinfected " + str(detects[2]))

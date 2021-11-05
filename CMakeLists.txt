@@ -13,8 +13,6 @@ add_executable(scan_util
                 include/Dispatcher.h
                 src/FileType.cpp
                 include/FileType.h
-                src/FileTypes.cpp
-                include/FileTypes.h
                 src/AnalysisResult.cpp
                 include/AnalysisResult.h
         )

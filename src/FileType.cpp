@@ -2,7 +2,6 @@
 // Created by alex on 04.11.2021.
 //
 
-#include <set>
 #include "../include/FileType.h"
 
 FileType::FileType(int fileType, std::regex fileTypeRegex, const std::vector<std::regex>& susStrings) {

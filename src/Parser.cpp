@@ -3,8 +3,6 @@
 //
 
 #include <filesystem>
-#include <iostream>
-#include <vector>
 #include "../include/Parser.h"
 
 Parser::Parser() {

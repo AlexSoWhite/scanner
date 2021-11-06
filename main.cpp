@@ -1,9 +1,9 @@
 #include <iostream>
+#include <chrono>
+#include <thread>
 #include "include/Parser.h"
 #include "include/Dispatcher.h"
 #include "include/AnalysisResult.h"
-#include <chrono>
-#include <thread>
 
 void thread_proc(Dispatcher& dispatcher, Parser& parser, AnalysisResult& ar, unsigned int thread_id) {
     // передача имён файлов в диспетчер, который внутри себя будет вызывать сканнеры с подходящими аргументами

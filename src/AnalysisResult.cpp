@@ -25,14 +25,3 @@ void AnalysisResult::print() const {
     std::cout<<"Execution time: "<<endTime-startTime<<std::endl;
     std::cout<<"========================="<<std::endl;
 }
-
-std::ostream & operator<<(std::ostream &os, const AnalysisResult& ar) {
-    os<<"====== Scan result ======"<<std::endl;
-    os<<"Processed files: "<<ar.processedFiles<<std::endl;
-    os<<"JS detects: "<<ar.jsDetects<<std::endl;
-    os<<"CMD detects: "<<ar.cmdDetects<<std::endl;
-    os<<"EXE detects: "<<ar.exeDetects<<std::endl;
-    os<<"Errors: "<<ar.errors<<std::endl;
-    os<<"Execution time: "<<ar.endTime-ar.startTime<<std::endl;
-    os<<"========================="<<std::endl;
-}

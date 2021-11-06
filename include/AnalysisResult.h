@@ -7,23 +7,21 @@
 
 // класс, объект которого хранит в себе результаты анализа, в том числе время
 class AnalysisResult {
-    int processedFiles;
-    int jsDetects;
-    int cmdDetects;
-    int exeDetects;
-    int errors;
-    float startTime;
-    float endTime;
+    unsigned long processedFiles;
+    unsigned long jsDetects;
+    unsigned long cmdDetects;
+    unsigned long exeDetects;
+    unsigned long errors;
+    double time;
 public:
     AnalysisResult(); // инициализация полей нулями
     void print() const;
-    void setProcessedFiles(int filesAmount) { this->processedFiles = filesAmount; };
+    void setProcessedFiles(unsigned long filesAmount) { this->processedFiles = filesAmount; };
     void increaseJsDetects() { ++this->jsDetects; };
     void increaseCmdDetects() { ++this->cmdDetects; };
     void increaseExeDetects() { ++this->exeDetects; };
     void increaseErrors() { ++this->errors; };
-    void setStartTime(float time) { this->startTime = time; };
-    void setEndTime(float time) { this->endTime = time; };
+    void setTime(double execTime) { this->time = execTime; };
 };
 
 #endif //SCAN_UTIL_ANALYSISRESULT_H

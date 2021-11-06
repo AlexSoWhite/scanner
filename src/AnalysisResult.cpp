@@ -11,8 +11,7 @@ AnalysisResult::AnalysisResult() {
     this->cmdDetects = 0;
     this->exeDetects = 0;
     this->errors = 0;
-    this->startTime = 0;
-    this->endTime = 0;
+    this->time = 0;
 }
 
 void AnalysisResult::print() const {
@@ -22,6 +21,6 @@ void AnalysisResult::print() const {
     std::cout<<"CMD detects: "<<cmdDetects<<std::endl;
     std::cout<<"EXE detects: "<<exeDetects<<std::endl;
     std::cout<<"Errors: "<<errors<<std::endl;
-    std::cout<<"Execution time: "<<endTime-startTime<<std::endl;
+    std::cout<<"Execution time: "<<time<<std::endl;
     std::cout<<"========================="<<std::endl;
 }

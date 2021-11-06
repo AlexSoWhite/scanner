@@ -58,7 +58,7 @@ def generate_file(iteration, f_type):
             detects[f_type] += 1
 
         overall[f_type] += 1
-        result = " ".join(result)
+        result = "\n".join(result)
         result = result*random.randint(100, 1000)
         f.write(result)
 

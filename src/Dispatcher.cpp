@@ -4,6 +4,7 @@
 
 #include <string>
 #include <regex>
+#include <map>
 #include "../include/Dispatcher.h"
 #include "../include/Scanner.h"
 

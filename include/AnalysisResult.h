@@ -24,7 +24,6 @@ public:
     void increaseErrors() { ++this->errors; };
     void setStartTime(float time) { this->startTime = time; };
     void setEndTime(float time) { this->endTime = time; };
-    friend std::ostream & operator<<(std::ostream &os, const AnalysisResult&);
 };
 
 #endif //SCAN_UTIL_ANALYSISRESULT_H

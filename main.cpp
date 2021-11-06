@@ -21,8 +21,7 @@ int main(int argc, const char *argv[]) {
     // получение списка имен файлов в указанной директории
     parser.parse(argv[1]);
 
-    Dispatcher dispatcher = Dispatcher();
-
+    Dispatcher& dispatcher = Dispatcher::init();
     // передача имён файлов в диспетчер, который внутри себя будет вызывать сканнеры с подходящими аргументами
     #pragma omp parallel shared(parser, ar, dispatcher) default(none)
     #pragma omp for schedule(dynamic)

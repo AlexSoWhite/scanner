@@ -11,6 +11,7 @@
 // класс, объект которого решает, как просканировать файл с помощью Scanner и обрабатывает результат
 class Dispatcher {
     std::vector<FileType> fileTypes; // это поле хранит типы файлов со всеми данными
+    Dispatcher(); // инициализация fileTypes значениями из задания
 public:
     enum {
         JS,
@@ -19,7 +20,11 @@ public:
         EXE,
         DLL
     }; // типы файлов
-    Dispatcher(); // инициализация fileTypes значениями из задания
+    static Dispatcher& init() { static Dispatcher d; return d; };
+    Dispatcher(const Dispatcher&) = delete;
+    Dispatcher(Dispatcher&&) = delete;
+    Dispatcher& operator=(const Dispatcher&) = delete;
+    Dispatcher& operator=(Dispatcher&&) = delete;
     void start(const std::string& fileName, AnalysisResult &ar); // запуск сканнеров и обработка результатов
 };
 

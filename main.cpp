@@ -39,7 +39,7 @@ int main(int argc, const char *argv[]) {
     threads.reserve(numThreads);
     for (unsigned int i = 0; i < numThreads; i++) {
         // создаем потоки, каждый из которых будет обрабатывать файлы начиная с индекса i с шагом hardware_concurrency
-        std::thread thr (thread_proc, std::ref(dispatcher), std::ref(parser), std::ref(ar), i);
+        std::thread thr(thread_proc, std::ref(dispatcher), std::ref(parser), std::ref(ar), i);
         threads.emplace_back(std::move(thr));
     }
 

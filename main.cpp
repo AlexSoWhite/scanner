@@ -7,7 +7,7 @@
 
 void thread_proc(Dispatcher& dispatcher, Parser& parser, AnalysisResult& ar, unsigned int thread_id) {
     // передача имён файлов в диспетчер, который внутри себя будет вызывать сканеры с подходящими аргументами
-    for (uint i = thread_id; i < parser.getFileNames().size(); i += std::thread::hardware_concurrency()) {
+    for (unsigned int i = thread_id; i < parser.getFileNames().size(); i += std::thread::hardware_concurrency()) {
         dispatcher.start(parser.getFileNames().at(i), ar);
     }
 }

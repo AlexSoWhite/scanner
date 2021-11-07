@@ -25,7 +25,7 @@ public:
     Dispatcher(Dispatcher&&) = delete;
     Dispatcher& operator=(const Dispatcher&) = delete;
     Dispatcher& operator=(Dispatcher&&) = delete;
-    void start(const std::string& fileName, AnalysisResult &ar); // запуск сканнеров и обработка результатов
+    void start(const std::string& fileName, AnalysisResult &ar); // запуск сканеров и обработка результатов
 };
 
 #endif //SCAN_UTIL_DISPATCHER_H

@@ -33,7 +33,7 @@ void Dispatcher::start(const std::string &fileName, AnalysisResult &ar) {
         // с помощью регулярки проверяем расширение файла
         if (std::regex_search(fileName, fType.getFileTypeRegex())) {
 
-            // запускаем сканнер и пишем результат сканирования в rt
+            // запускаем сканер и пишем результат сканирования в rt
             Scanner::Result rt = Scanner::scan(fileName, fType.getSuspiciousStrings());
 
             if (rt == Scanner::Result::ERROR) {

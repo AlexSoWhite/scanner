@@ -6,8 +6,8 @@
 #include "include/AnalysisResult.h"
 
 void thread_proc(Dispatcher& dispatcher, Parser& parser, AnalysisResult& ar, unsigned int thread_id) {
-    // передача имён файлов в диспетчер, который внутри себя будет вызывать сканнеры с подходящими аргументами
-    for (uint i = thread_id; i < parser.getFileNames().size(); i += std::thread::hardware_concurrency()) {
+    // передача имён файлов в диспетчер, который внутри себя будет вызывать сканеры с подходящими аргументами
+    for (unsigned int i = thread_id; i < parser.getFileNames().size(); i += std::thread::hardware_concurrency()) {
         dispatcher.start(parser.getFileNames().at(i), ar);
     }
 }
@@ -39,7 +39,7 @@ int main(int argc, const char *argv[]) {
     threads.reserve(numThreads);
     for (unsigned int i = 0; i < numThreads; i++) {
         // создаем потоки, каждый из которых будет обрабатывать файлы начиная с индекса i с шагом hardware_concurrency
-        std::thread thr (thread_proc, std::ref(dispatcher), std::ref(parser), std::ref(ar), i);
+        std::thread thr(thread_proc, std::ref(dispatcher), std::ref(parser), std::ref(ar), i);
         threads.emplace_back(std::move(thr));
     }
 
